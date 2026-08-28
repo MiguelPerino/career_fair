@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas de Tecnologia — Feira de Profissões 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,700;0,900;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F1E4;
+    --paper-deep:#EDE5D0;
+    --ink:#241E14;
+    --forest:#1B2B22;
+    --forest-2:#2F4A38;
+    --sienna:#B5502C;
+    --sienna-deep:#8E3B1F;
+    --sage:#5C7A5F;
+    --mustard:#C99A2E;
+    --line:rgba(36,30,20,0.18);
+    --shadow:rgba(27,43,34,0.18);
+    --r-tag:'01';
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:'Bitter',serif;
+    font-weight:700;
+    margin:0;
+    color:var(--forest);
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.04em;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--mustard);color:var(--ink);}
+
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+    .reveal.in{opacity:1;transform:translateY(0);}
+  }
+
+  /* ===== layout shell ===== */
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ===== side index tabs (signature element) ===== */
+  .index-tabs{
+    position:fixed;
+    top:50%;
+    right:0;
+    transform:translateY(-50%);
+    z-index:50;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .index-tabs a{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    text-decoration:none;
+    background:var(--forest);
+    color:var(--paper);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:8px 14px 8px 16px;
+    border-radius:6px 0 0 6px;
+    transform:translateX(78px);
+    transition:transform .25s ease, background .2s ease;
+    box-shadow:-2px 3px 8px var(--shadow);
+    white-space:nowrap;
+  }
+  .index-tabs a span.n{
+    font-weight:600;
+    color:var(--mustard);
+  }
+  .index-tabs a:hover,
+  .index-tabs a:focus-visible{
+    transform:translateX(0);
+    background:var(--sienna);
+    outline:none;
+  }
+  .index-tabs a:nth-child(1){transition-delay:0s;}
+  .index-tabs a:nth-child(2){transition-delay:.02s;}
+  @media (max-width: 860px){
+    .index-tabs{display:none;}
+  }
+
+  /* mobile top nav replacement */
+  .mobile-nav{
+    display:none;
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--forest);
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:10px 14px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .mobile-nav a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--paper);
+    text-decoration:none;
+    padding:6px 12px;
+    border:1px solid rgba(246,241,228,.3);
+    border-radius:20px;
+    margin-right:8px;
+    display:inline-block;
+  }
+  @media (max-width: 860px){
+    .mobile-nav{display:block;}
+  }
+
+  /* ===== hero ===== */
+  .hero{
+    background:
+      radial-gradient(circle at 85% 12%, rgba(197,154,46,0.16), transparent 45%),
+      var(--forest);
+    color:var(--paper);
+    padding:88px 0 70px;
+    position:relative;
+    overflow:hidden;
+    border-bottom:6px solid var(--sienna);
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      repeating-linear-gradient(90deg, rgba(246,241,228,.035) 0 1px, transparent 1px 64px),
+      repeating-linear-gradient(0deg, rgba(246,241,228,.035) 0 1px, transparent 1px 64px);
+    pointer-events:none;
+  }
+  .hero .page{position:relative;}
+  .hero .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--mustard);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .hero .eyebrow::before{
+    content:"";
+    width:26px;height:1px;
+    background:var(--mustard);
+  }
+  .hero h1{
+    color:var(--paper);
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    line-height:1.03;
+    max-width:14ch;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--mustard);
+  }
+  .hero p.lede{
+    max-width:46ch;
+    margin-top:24px;
+    font-size:1.08rem;
+    color:rgba(246,241,228,.82);
+  }
+  .hero .stamp{
+    position:absolute;
+    right:28px;
+    top:60px;
+    width:118px;
+    height:118px;
+    border:1.5px solid rgba(197,154,46,.55);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    color:var(--mustard);
+    text-transform:uppercase;
+    transform:rotate(8deg);
+  }
+  @media (max-width:700px){ .hero .stamp{display:none;} }
+
+  /* ===== section scaffolding ===== */
+  section{
+    padding:80px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:44px;
+    flex-wrap:wrap;
+  }
+  .section-head .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--sienna);
+    display:block;
+    margin-bottom:10px;
+  }
+  .section-head h2{
+    font-size:clamp(1.7rem,3.4vw,2.5rem);
+  }
+  .section-head .note{
+    max-width:34ch;
+    font-size:.94rem;
+    color:var(--forest-2);
+    font-style:italic;
+    text-align:right;
+  }
+  @media (max-width:700px){
+    .section-head .note{text-align:left;}
+  }
+
+  /* ===== areas grid (specimen cards) ===== */
+  .areas-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  @media (max-width:900px){ .areas-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .areas-grid{grid-template-columns:1fr;} }
+
+  .specimen{
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:24px 22px 22px;
+    position:relative;
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .specimen:hover{
+    transform:translateY(-4px);
+    box-shadow:0 10px 22px var(--shadow);
+    border-color:var(--sienna);
+  }
+  .specimen .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--sage);
+    letter-spacing:.08em;
+  }
+  .specimen .icon{
+    width:38px;height:38px;
+    margin:14px 0 12px;
+    color:var(--sienna);
+  }
+  .specimen h3{
+    font-size:1.15rem;
+    margin-bottom:6px;
+  }
+  .specimen .role{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--forest-2);
+    margin-bottom:10px;
+    display:block;
+  }
+  .specimen p{
+    font-size:.92rem;
+    color:#3b3225;
+    margin:0;
+  }
+
+  /* myths */
+  .myths{
+    margin-top:56px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  @media (max-width:860px){ .myths{grid-template-columns:1fr;} }
+  .myth{
+    border-left:3px solid var(--sienna);
+    padding-left:16px;
+  }
+  .myth .x{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--sienna);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .myth .claim{
+    font-family:'Bitter',serif;
+    font-style:italic;
+    font-size:1.02rem;
+    margin:8px 0 10px;
+    color:var(--forest);
+  }
+  .myth .truth{
+    font-size:.9rem;
+    color:#3b3225;
+  }
+
+  /* ===== courses ===== */
+  .courses{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .course{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:28px;
+    padding:30px 0;
+    border-top:1px solid var(--line);
+  }
+  .course:last-child{border-bottom:1px solid var(--line);}
+  @media (max-width:700px){
+    .course{grid-template-columns:1fr; gap:10px;}
+  }
+  .course .id{
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .course .id .code{
+    display:inline-block;
+    background:var(--forest);
+    color:var(--mustard);
+    font-size:.78rem;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:4px;
+    letter-spacing:.05em;
+  }
+  .course .id .kind{
+    display:block;
+    margin-top:8px;
+    font-size:.72rem;
+    color:var(--sage);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+  }
+  .course h3{
+    font-size:1.4rem;
+    margin-bottom:10px;
+  }
+  .course .grid-detail{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px 28px;
+    margin-top:14px;
+  }
+  @media (max-width:640px){ .course .grid-detail{grid-template-columns:1fr;} }
+  .course .grid-detail div span.k{
+    display:block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--sienna);
+    margin-bottom:4px;
+  }
+  .course .grid-detail div p{
+    margin:0;
+    font-size:.9rem;
+    color:#3b3225;
+  }
+  .course-source{
+    font-size:.8rem;
+    color:var(--sage);
+    margin-top:36px;
+    font-style:italic;
+  }
+
+  /* comparison table */
+  .compare-wrap{
+    margin-top:52px;
+    overflow-x:auto;
+  }
+  table.compare{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.9rem;
+    min-width:560px;
+  }
+  table.compare th{
+    text-align:left;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--paper);
+    background:var(--forest);
+    padding:12px 16px;
+  }
+  table.compare td{
+    padding:13px 16px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  table.compare tr:hover td{background:var(--paper-deep);}
+  table.compare td.kw{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.78rem;
+    color:var(--sienna);
+    white-space:nowrap;
+  }
+
+  /* ===== careers cloud ===== */
+  .careers-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  @media (max-width:900px){ .careers-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:640px){ .careers-grid{grid-template-columns:repeat(2,1fr);} }
+  .career{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px;
+    font-size:.85rem;
+  }
+  .career b{
+    display:block;
+    font-family:'Bitter',serif;
+    font-size:1rem;
+    color:var(--forest);
+    margin-bottom:5px;
+  }
+  .career .desc{color:#3b3225;}
+  .careers-example{
+    margin-top:26px;
+    background:var(--forest);
+    color:var(--paper);
+    border-radius:6px;
+    padding:20px 24px;
+    font-size:.92rem;
+  }
+  .careers-example b{color:var(--mustard);}
+
+  /* ===== market stats ===== */
+  section#mercado{background:var(--forest); color:var(--paper); border-bottom:none;}
+  #mercado .section-head .tag{color:var(--mustard);}
+  #mercado .section-head h2{color:var(--paper);}
+  #mercado .section-head .note{color:rgba(246,241,228,.65);}
+  .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:rgba(246,241,228,.14);
+    border:1px solid rgba(246,241,228,.14);
+  }
+  @media (max-width:900px){ .stat-grid{grid-template-columns:repeat(2,1fr);} }
+  .stat{
+    background:var(--forest);
+    padding:28px 22px;
+  }
+  .stat .num{
+    font-family:'Bitter',serif;
+    font-weight:900;
+    font-size:clamp(1.7rem,3vw,2.3rem);
+    color:var(--mustard);
+    line-height:1;
+  }
+  .stat .label{
+    margin-top:10px;
+    font-size:.85rem;
+    color:rgba(246,241,228,.82);
+  }
+  .stat .sub{
+    display:block;
+    margin-top:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem;
+    color:var(--sage);
+  }
+  .invest-row{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  @media (max-width:640px){ .invest-row{grid-template-columns:1fr;} }
+  .invest{
+    border:1px solid rgba(246,241,228,.2);
+    border-radius:6px;
+    padding:22px 24px;
+  }
+  .invest .num{
+    font-family:'Bitter',serif;
+    font-weight:900;
+    font-size:1.9rem;
+    color:var(--paper);
+  }
+  .invest .label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--mustard);
+    margin:6px 0 8px;
+  }
+  .invest p{margin:0;font-size:.85rem;color:rgba(246,241,228,.7);}
+  .rising{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  @media (max-width:760px){ .rising{grid-template-columns:1fr;} }
+  .rising div{
+    border-left:2px solid var(--mustard);
+    padding-left:14px;
+  }
+  .rising h4{color:var(--paper); font-size:1rem; margin-bottom:6px;}
+  .rising p{font-size:.85rem;color:rgba(246,241,228,.72);margin:0;}
+  .caveat{
+    margin-top:36px;
+    font-size:.85rem;
+    color:rgba(246,241,228,.6);
+    font-style:italic;
+    border-top:1px solid rgba(246,241,228,.16);
+    padding-top:20px;
+  }
+
+  /* ===== IA e futuro ===== */
+  .ia-cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+  @media (max-width:760px){ .ia-cols{grid-template-columns:1fr;} }
+  .ia-card{
+    background:var(--paper-deep);
+    border-radius:6px;
+    padding:26px 24px;
+    border-top:4px solid var(--sage);
+  }
+  .ia-card.human{border-top-color:var(--sienna);}
+  .ia-card h4{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--forest-2);
+    margin-bottom:16px;
+  }
+  .ia-card ul{margin:0;padding-left:20px;}
+  .ia-card li{margin-bottom:9px;font-size:.94rem;}
+
+  .kit{
+    margin-top:52px;
+  }
+  .kit .kit-title{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--sienna);
+    margin-bottom:20px;
+    display:block;
+  }
+  .kit-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  @media (max-width:760px){ .kit-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:480px){ .kit-grid{grid-template-columns:1fr;} }
+  .kit-item{
+    padding:16px 14px;
+    border:1px dashed var(--line);
+    border-radius:4px;
+  }
+  .kit-item b{
+    font-family:'Bitter',serif;
+    display:block;
+    font-size:.98rem;
+    color:var(--sienna);
+    margin-bottom:4px;
+  }
+  .kit-item span{font-size:.85rem;color:#3b3225;}
+  .callout{
+    margin-top:44px;
+    text-align:center;
+    font-family:'Bitter',serif;
+    font-weight:700;
+    font-style:italic;
+    font-size:clamp(1.1rem,2vw,1.4rem);
+    color:var(--forest);
+    max-width:60ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* ===== comece agora / steps ===== */
+  .steps{
+    display:flex;
+    flex-direction:column;
+  }
+  .step{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:22px;
+    padding:22px 0;
+    border-top:1px solid var(--line);
+  }
+  .step:last-child{border-bottom:1px solid var(--line);}
+  .step .step-n{
+    font-family:'Bitter',serif;
+    font-weight:900;
+    font-size:2rem;
+    color:var(--paper-deep);
+    -webkit-text-stroke:1.4px var(--sienna);
+    line-height:1;
+  }
+  .step h3{font-size:1.1rem; margin-bottom:6px;}
+  .step p{margin:0;font-size:.92rem;color:#3b3225;}
+
+  /* quick test */
+  .quiz{
+    margin-top:60px;
+    background:var(--forest);
+    color:var(--paper);
+    border-radius:8px;
+    padding:34px 32px;
+  }
+  .quiz .quiz-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--mustard);
+  }
+  .quiz h3{color:var(--paper); font-size:1.3rem; margin:10px 0 22px;}
+  .quiz-item{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:rgba(246,241,228,.05);
+    border:1px solid rgba(246,241,228,.18);
+    color:var(--paper);
+    border-radius:6px;
+    padding:14px 16px;
+    margin-bottom:10px;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    font-size:.94rem;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .quiz-item:hover{border-color:var(--mustard);}
+  .quiz-item.active{
+    background:rgba(201,154,46,.16);
+    border-color:var(--mustard);
+  }
+  .quiz-result{
+    margin-top:18px;
+    padding:16px 18px;
+    border-left:3px solid var(--mustard);
+    background:rgba(246,241,228,.06);
+    font-size:.94rem;
+    display:none;
+  }
+  .quiz-result.show{display:block;}
+  .quiz-result b{color:var(--mustard);}
+
+  /* ===== continuar / links ===== */
+  .continue-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:40px;
+  }
+  @media (max-width:800px){ .continue-grid{grid-template-columns:1fr;} }
+  .links-list{list-style:none;margin:0;padding:0;}
+  .links-list li{
+    border-top:1px solid var(--line);
+    padding:14px 0;
+  }
+  .links-list li:last-child{border-bottom:1px solid var(--line);}
+  .links-list a{
+    text-decoration:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'Bitter',serif;
+    font-weight:600;
+    font-size:1.02rem;
+    color:var(--forest);
+  }
+  .links-list a:hover{color:var(--sienna);}
+  .links-list .arrow{font-family:'IBM Plex Mono',monospace;font-size:.9rem;}
+  .sources{
+    font-size:.85rem;
+    color:var(--forest-2);
+  }
+  .sources h4{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--sienna);
+    margin-bottom:12px;
+  }
+  .sources dl{margin:0;}
+  .sources dt{font-weight:600;color:var(--forest);margin-top:10px;}
+  .sources dd{margin:2px 0 0;}
+  .consulted{
+    margin-top:16px;
+    font-style:italic;
+    font-size:.8rem;
+  }
+
+  /* ===== closing ===== */
+  .closing{
+    background:var(--paper-deep);
+    padding:90px 0;
+    text-align:center;
+    border-bottom:none;
+  }
+  .closing p.big{
+    font-family:'Bitter',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(1.3rem,3vw,1.9rem);
+    max-width:24ch;
+    margin:0 auto 26px;
+    color:var(--forest);
+  }
+  .closing .q{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.95rem;
+    color:var(--sienna);
+    letter-spacing:.02em;
+  }
+  footer{
+    padding:26px 0 50px;
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.75rem;
+    color:var(--sage);
+  }
+</style>
+</head>
+<body>
+
+<nav class="mobile-nav" aria-label="Navegação rápida">
+  <a href="#areas">Áreas</a>
+  <a href="#cursos">Cursos</a>
+  <a href="#carreiras">Carreiras</a>
+  <a href="#mercado">Mercado</a>
+  <a href="#ia">IA</a>
+  <a href="#comece">Comece</a>
+  <a href="#continuar">Links</a>
+</nav>
+
+<div class="index-tabs" aria-label="Índice">
+  <a href="#areas"><span class="n">01</span> Áreas</a>
+  <a href="#cursos"><span class="n">02</span> Cursos</a>
+  <a href="#carreiras"><span class="n">03</span> Carreiras</a>
+  <a href="#mercado"><span class="n">04</span> Mercado</a>
+  <a href="#ia"><span class="n">05</span> IA &amp; Futuro</a>
+  <a href="#comece"><span class="n">06</span> Comece agora</a>
+  <a href="#continuar"><span class="n">07</span> Links</a>
+</div>
+
+<header class="hero">
+  <div class="page">
+    <div class="eyebrow">Feira de Profissões · Guia de Tecnologia 2026</div>
+    <h1>Um <em>atlas</em> das trilhas de tecnologia</h1>
+    <p class="lede">Cursos, áreas de atuação e mercado de trabalho, organizados como um guia de campo — para você explorar antes de decidir.</p>
+    <div class="stamp">Ed. 2026<br>Consultado<br>28 / 08</div>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- ===== 01 ÁREAS ===== -->
+  <section id="areas">
+    <div class="section-head">
+      <div>
+        <span class="tag">01 · Antes de escolher um curso</span>
+        <h2>Tecnologia é maior do que programar</h2>
+      </div>
+      <p class="note">Um produto digital envolve dezenas de funções diferentes. Dá para gostar de tecnologia sem passar o dia inteiro escrevendo código.</p>
+    </div>
+
+    <div class="areas-grid">
+      <article class="specimen reveal">
+        <span class="num">Espécime nº 01</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
+        <h3>Software</h3>
+        <span class="role">Criar aplicações</span>
+        <p>Sites, apps, APIs, sistemas e jogos. Front-end, back-end, mobile e engenharia de software.</p>
+      </article>
+      <article class="specimen reveal">
+        <span class="num">Espécime nº 02</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V5M4 19h16M8 15l3-4 3 3 4-6"/></svg>
+        <h3>Dados + IA</h3>
+        <span class="role">Entender padrões, criar modelos</span>
+        <p>Análise de dados, ciência de dados, machine learning, IA e engenharia de dados.</p>
+      </article>
+      <article class="specimen reveal">
+        <span class="num">Espécime nº 03</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg>
+        <h3>Segurança</h3>
+        <span class="role">Proteger sistemas e informações</span>
+        <p>Cibersegurança, segurança de aplicações, resposta a incidentes e proteção de dados.</p>
+      </article>
+      <article class="specimen reveal">
+        <span class="num">Espécime nº 04</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 17a4 4 0 010-8 5 5 0 0110-1 4 4 0 013 7"/><path d="M9 17v3M15 17v3"/></svg>
+        <h3>Cloud + Infra</h3>
+        <span class="role">Fazer tudo funcionar em escala</span>
+        <p>Nuvem, DevOps, redes, servidores, observabilidade e infraestrutura online.</p>
+      </article>
+      <article class="specimen reveal">
+        <span class="num">Espécime nº 05</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="8" width="14" height="10" rx="1.5"/><path d="M9 8V5h6v3M9 12h.01M15 12h.01M9 15h.01M15 15h.01"/></svg>
+        <h3>Hardware + IoT</h3>
+        <span class="role">Levar software ao mundo físico</span>
+        <p>Robótica, eletrônica, sensores, sistemas embarcados, automação e drones.</p>
+      </article>
+      <article class="specimen reveal">
+        <span class="num">Espécime nº 06</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+        <h3>Produto + UX</h3>
+        <span class="role">Resolver o problema certo</span>
+        <p>Experiência do usuário, interface, pesquisa e conexão entre pessoas e tecnologia.</p>
+      </article>
+    </div>
+
+    <div class="myths">
+      <div class="myth">
+        <span class="x">Mito</span>
+        <p class="claim">"Preciso saber programar antes da faculdade."</p>
+        <p class="truth">Não. Ter experiência ajuda, mas a graduação existe justamente para ensinar.</p>
+      </div>
+      <div class="myth">
+        <span class="x">Mito</span>
+        <p class="claim">"O curso que eu escolher define minha profissão para sempre."</p>
+        <p class="truth">Não. Os cursos se cruzam bastante e sua carreira pode mudar várias vezes.</p>
+      </div>
+      <div class="myth">
+        <span class="x">Mito</span>
+        <p class="claim">"Tecnologia é só para quem é excelente em matemática."</p>
+        <p class="truth">Matemática pesa mais em algumas áreas do que em outras. Curiosidade e lógica contam muito.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 02 CURSOS ===== -->
+  <section id="cursos">
+    <div class="section-head">
+      <div>
+        <span class="tag">02 · Graduações</span>
+        <h2>Qual curso combina com o que você quer explorar?</h2>
+      </div>
+      <p class="note">Não existe "o melhor curso" — existe o que faz mais sentido para o problema que você quer aprender a resolver. As grades variam entre instituições.</p>
+    </div>
+
+    <div class="courses">
+      <div class="course">
+        <div class="id"><span class="code">CC</span><span class="kind">Bacharelado</span></div>
+        <div>
+          <h3>Ciência da Computação</h3>
+          <div class="grid-detail">
+            <div><span class="k">Foco</span><p>Fundamentos da computação e criação de soluções computacionais.</p></div>
+            <div><span class="k">Você vai encontrar</span><p>Algoritmos, estruturas de dados, matemática, SO, redes, banco de dados, IA e teoria da computação.</p></div>
+            <div><span class="k">Combina se</span><p>Você gosta de entender como as coisas funcionam por trás e quer uma base técnica ampla.</p></div>
+            <div><span class="k">Caminhos</span><p>Desenvolvimento, IA, dados, pesquisa, segurança, sistemas e computação gráfica.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="id"><span class="code">SI</span><span class="kind">Bacharelado</span></div>
+        <div>
+          <h3>Sistemas de Informação</h3>
+          <div class="grid-detail">
+            <div><span class="k">Foco</span><p>Usar tecnologia e informação para resolver problemas de organizações e pessoas.</p></div>
+            <div><span class="k">Você vai encontrar</span><p>Programação, banco de dados, sistemas, engenharia de software, processos, gestão e negócios.</p></div>
+            <div><span class="k">Combina se</span><p>Você gosta de tecnologia, mas também se interessa por empresas, produto e pessoas.</p></div>
+            <div><span class="k">Caminhos</span><p>Desenvolvimento, análise de sistemas, dados, produto, gestão de tecnologia e negócios digitais.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="id"><span class="code">EC</span><span class="kind">Bacharelado</span></div>
+        <div>
+          <h3>Engenharia de Computação</h3>
+          <div class="grid-detail">
+            <div><span class="k">Foco</span><p>Integrar software, hardware e sistemas físicos.</p></div>
+            <div><span class="k">Você vai encontrar</span><p>Programação, eletrônica, circuitos, física, arquitetura de computadores e sistemas embarcados.</p></div>
+            <div><span class="k">Combina se</span><p>Você curte programação, mas também robótica, eletrônica e equipamentos.</p></div>
+            <div><span class="k">Caminhos</span><p>Robótica, IoT, automação, sistemas embarcados, hardware, firmware e telecom.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="id"><span class="code">ES</span><span class="kind">Bacharelado</span></div>
+        <div>
+          <h3>Engenharia de Software</h3>
+          <div class="grid-detail">
+            <div><span class="k">Foco</span><p>Construir e manter software de qualidade ao longo do tempo.</p></div>
+            <div><span class="k">Você vai encontrar</span><p>Requisitos, arquitetura, testes, qualidade, manutenção e gestão de projetos de software.</p></div>
+            <div><span class="k">Combina se</span><p>Você quer entender como equipes constroem sistemas grandes e confiáveis.</p></div>
+            <div><span class="k">Caminhos</span><p>Arquitetura de software, qualidade, testes, DevOps, liderança técnica e produto.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="course">
+        <div class="id"><span class="code">ADS</span><span class="kind">Tecnólogo</span></div>
+        <div>
+          <h3>Análise e Desenvolvimento de Sistemas</h3>
+          <div class="grid-detail">
+            <div><span class="k">Foco</span><p>Formação superior mais curta e direcionada ao desenvolvimento e uso de sistemas.</p></div>
+            <div><span class="k">Você vai encontrar</span><p>Programação, banco de dados, desenvolvimento web/mobile e fundamentos de engenharia de software.</p></div>
+            <div><span class="k">Combina se</span><p>Você busca uma formação mais direta e prática para começar a atuar.</p></div>
+            <div><span class="k">Caminhos</span><p>Front-end/back-end, mobile, banco de dados, análise e suporte a sistemas.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="course-source">Base de referência: Diretrizes Curriculares Nacionais do MEC para cursos de Computação (Resolução CNE/CES nº 5/2016).</p>
+
+    <div class="compare-wrap">
+      <table class="compare">
+        <thead>
+          <tr><th>Curso</th><th>Pergunta que mais aparece</th><th>Palavra-chave</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ciência da Computação</td><td>"Como a computação funciona?"</td><td class="kw">FUNDAMENTOS</td></tr>
+          <tr><td>Sistemas de Informação</td><td>"Como a tecnologia resolve um problema real?"</td><td class="kw">NEGÓCIOS + TI</td></tr>
+          <tr><td>Eng. de Computação</td><td>"Como software e hardware trabalham juntos?"</td><td class="kw">HARDWARE + SOFTWARE</td></tr>
+          <tr><td>Eng. de Software</td><td>"Como construir software de qualidade?"</td><td class="kw">SOFTWARE EM ESCALA</td></tr>
+          <tr><td>ADS</td><td>"Como desenvolver sistemas na prática?"</td><td class="kw">APLICAÇÃO</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="course-source">Importante: o mesmo cargo pode receber pessoas formadas em cursos diferentes. Graduação é ponto de partida, não uma "caixa" que limita sua carreira.</p>
+  </section>
+
+  <!-- ===== 03 CARREIRAS ===== -->
+  <section id="carreiras">
+    <div class="section-head">
+      <div>
+        <span class="tag">03 · Carreiras</span>
+        <h2>Onde dá para trabalhar?</h2>
+      </div>
+      <p class="note">Um mesmo aplicativo pode precisar de especialistas em software, dados, segurança, nuvem, design e produto ao mesmo tempo.</p>
+    </div>
+
+    <div class="careers-grid">
+      <div class="career"><b>Front-end</b><span class="desc">Transforma telas e interações em aplicações que funcionam no navegador.</span></div>
+      <div class="career"><b>Back-end</b><span class="desc">Cria APIs, autenticação, integrações e acesso a bancos de dados.</span></div>
+      <div class="career"><b>Mobile</b><span class="desc">Desenvolve experiências para Android, iOS ou multiplataforma.</span></div>
+      <div class="career"><b>Dados</b><span class="desc">Organiza dados, encontra padrões e cria métricas e previsões.</span></div>
+      <div class="career"><b>IA / ML</b><span class="desc">Machine learning, modelos generativos, visão computacional e NLP.</span></div>
+      <div class="career"><b>Cyber</b><span class="desc">Protege aplicações, redes, identidades e informações contra ataques.</span></div>
+      <div class="career"><b>Cloud / DevOps</b><span class="desc">Automatiza infraestrutura e mantém serviços disponíveis.</span></div>
+      <div class="career"><b>Redes</b><span class="desc">Planeja e opera redes, comunicação entre sistemas e telecom.</span></div>
+      <div class="career"><b>Embarcados / IoT</b><span class="desc">Programa sensores, placas, equipamentos e produtos conectados.</span></div>
+      <div class="career"><b>UX / UI</b><span class="desc">Pesquisa pessoas, desenha fluxos e cria interfaces mais claras.</span></div>
+      <div class="career"><b>Produto</b><span class="desc">Ajuda a decidir o que construir, por quê, e como medir se funcionou.</span></div>
+      <div class="career"><b>Pesquisa</b><span class="desc">Explora problemas avançados em algoritmos, IA, segurança e mais.</span></div>
+    </div>
+
+    <div class="careers-example">
+      <b>Exemplo</b> — um app de delivery pode envolver front-end, back-end, mobile, banco de dados, cloud, segurança, UX, produto e dados. Tecnologia é trabalho em equipe.
+    </div>
+  </section>
+
+  <!-- ===== 04 MERCADO ===== -->
+  <section id="mercado">
+    <div class="section-head">
+      <div>
+        <span class="tag">04 · Mercado de trabalho</span>
+        <h2>Como está a área em 2026?</h2>
+      </div>
+      <p class="note">Retrato do Brasil com dados de 2025 publicados em 2026. Mostram escala e tendência — não garantem vaga ou salário individual.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">2,13 mi</div>
+        <div class="label">empregos CLT no Macrossetor de TIC</div>
+        <span class="sub">Brasil, 2025 · +1,5% no ano</span>
+      </div>
+      <div class="stat">
+        <div class="num">+31,3 mil</div>
+        <div class="label">novos empregos CLT no ano</div>
+        <span class="sub">Macrossetor de TIC, 2025</span>
+      </div>
+      <div class="stat">
+        <div class="num">494 mil</div>
+        <div class="label">profissionais de TI no setor TIC</div>
+        <span class="sub">39,9% dos vínculos do setor</span>
+      </div>
+      <div class="stat">
+        <div class="num">58,8%</div>
+        <div class="label">dos profissionais de TI em desenvolvimento</div>
+        <span class="sub">290.591 vínculos CLT</span>
+      </div>
+    </div>
+
+    <div class="invest-row">
+      <div class="invest">
+        <div class="num">R$ 765,6 bi</div>
+        <div class="label">Nuvem</div>
+        <p>Perspectiva de investimento no Brasil entre 2026 e 2029.</p>
+      </div>
+      <div class="invest">
+        <div class="num">R$ 736,6 bi</div>
+        <div class="label">Inteligência Artificial</div>
+        <p>Perspectiva de investimento no Brasil entre 2026 e 2029.</p>
+      </div>
+    </div>
+
+    <div class="rising">
+      <div>
+        <h4>IA + Big Data</h4>
+        <p>Entre as habilidades tecnológicas de crescimento mais rápido até 2030.</p>
+      </div>
+      <div>
+        <h4>Redes + Cyber</h4>
+        <p>Cibersegurança e conectividade entre as competências mais demandadas.</p>
+      </div>
+      <div>
+        <h4>Habilidades humanas</h4>
+        <p>Pensamento analítico, criatividade, colaboração e adaptação continuam essenciais.</p>
+      </div>
+    </div>
+
+    <p class="caveat">Atenção: mercado aquecido não significa carreira fácil. Fundamentos, projetos, comunicação, inglês técnico e aprendizado contínuo fazem diferença.<br>Fontes: Brasscom — Relatório Setorial 2025 (publicado em 2026); World Economic Forum — Future of Jobs Report 2025.</p>
+  </section>
+
+  <!-- ===== 05 IA E FUTURO ===== -->
+  <section id="ia">
+    <div class="section-head">
+      <div>
+        <span class="tag">05 · IA e futuro</span>
+        <h2>A IA vai "acabar" com a programação?</h2>
+      </div>
+      <p class="note">A resposta mais útil é: a IA está mudando o trabalho. Algumas tarefas ficam mais automáticas; outras ficam mais importantes.</p>
+    </div>
+
+    <div class="ia-cols">
+      <div class="ia-card">
+        <h4>O que a IA já ajuda a fazer</h4>
+        <ul>
+          <li>Gerar rascunhos de código e testes</li>
+          <li>Explicar erros e documentação</li>
+          <li>Prototipar ideias mais rápido</li>
+          <li>Automatizar tarefas repetitivas</li>
+        </ul>
+      </div>
+      <div class="ia-card human">
+        <h4>O que continua precisando de gente</h4>
+        <ul>
+          <li>Entender o problema certo</li>
+          <li>Avaliar se a resposta está correta</li>
+          <li>Tomar decisões de arquitetura e segurança</li>
+          <li>Conversar com usuários e trabalhar em equipe</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="kit">
+      <span class="kit-title">Um "kit" de habilidades que envelhece bem</span>
+      <div class="kit-grid">
+        <div class="kit-item"><b>Lógica</b><span>Quebrar problemas grandes em partes menores.</span></div>
+        <div class="kit-item"><b>Fundamentos</b><span>Entender algoritmos, dados, redes e sistemas.</span></div>
+        <div class="kit-item"><b>Comunicação</b><span>Explicar ideias e trabalhar com pessoas diferentes.</span></div>
+        <div class="kit-item"><b>Inglês técnico</b><span>Ler documentação, artigos e ferramentas.</span></div>
+        <div class="kit-item"><b>Curiosidade</b><span>Testar, perguntar "por quê?" e explorar áreas novas.</span></div>
+        <div class="kit-item"><b>Aprender sempre</b><span>A tecnologia muda; aprender vira vantagem.</span></div>
+      </div>
+    </div>
+
+    <p class="callout">Não tente decorar a tecnologia de hoje. Aprenda a resolver problemas — e a aprender a próxima.</p>
+  </section>
+
+  <!-- ===== 06 COMECE AGORA ===== -->
+  <section id="comece">
+    <div class="section-head">
+      <div>
+        <span class="tag">06 · Comece agora</span>
+        <h2>Você não precisa esperar a faculdade</h2>
+      </div>
+      <p class="note">Faça pequenos experimentos. É muito mais fácil escolher depois de ter colocado a mão na massa.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-n">01</span>
+        <div><h3>Programe algo pequeno</h3><p>Um jogo simples, uma calculadora, uma página ou um script em Python já ensina muito.</p></div>
+      </div>
+      <div class="step">
+        <span class="step-n">02</span>
+        <div><h3>Crie um projeto seu</h3><p>Escolha um problema que você entende. Projeto próprio gera curiosidade e perguntas reais.</p></div>
+      </div>
+      <div class="step">
+        <span class="step-n">03</span>
+        <div><h3>Explore mais de uma área</h3><p>Teste software, dados, IA, hardware, segurança ou design antes de se rotular.</p></div>
+      </div>
+      <div class="step">
+        <span class="step-n">04</span>
+        <div><h3>Mostre o que fez</h3><p>GitHub e portfólio ajudam a registrar sua evolução — mesmo com projetos simples.</p></div>
+      </div>
+      <div class="step">
+        <span class="step-n">05</span>
+        <div><h3>Compare faculdades</h3><p>Olhe grade curricular, professores, projetos, laboratórios, estágio, horário e proposta do curso.</p></div>
+      </div>
+    </div>
+
+    <div class="quiz">
+      <span class="quiz-tag">Teste rápido</span>
+      <h3>O que mais parece com você?</h3>
+
+      <button class="quiz-item" data-r="Explore <b>Ciência da Computação</b> — foco em fundamentos, algoritmos e teoria por trás da computação.">Quero entender algoritmos, IA e como a computação funciona por trás.</button>
+      <button class="quiz-item" data-r="Explore <b>Sistemas de Informação</b> — tecnologia conectada a negócios, produto e processos.">Gosto de tecnologia, mas também de negócios, produto e empresas.</button>
+      <button class="quiz-item" data-r="Explore <b>Engenharia de Computação</b> — o ponto de encontro entre software e hardware.">Gosto de eletrônica, robôs, placas e programação.</button>
+      <button class="quiz-item" data-r="Explore <b>Engenharia de Software</b> — construir sistemas grandes, confiáveis e que evoluem por anos.">Quero construir software grande, confiável e bem organizado.</button>
+      <button class="quiz-item" data-r="Explore <b>ADS</b> — formação superior mais curta e direcionada à prática com sistemas.">Quero uma formação mais curta e direcionada à prática com sistemas.</button>
+
+      <div class="quiz-result" id="quizResult"></div>
+    </div>
+  </section>
+
+  <!-- ===== 07 CONTINUAR ===== -->
+  <section id="continuar">
+    <div class="section-head">
+      <div>
+        <span class="tag">07 · Para continuar</span>
+        <h2>Continue explorando depois da feira</h2>
+      </div>
+      <p class="note">Escolha só uma opção e teste por 30 minutos. Não precisa saber por onde começar.</p>
+    </div>
+
+    <div class="continue-grid">
+      <ul class="links-list">
+        <li><a href="https://scratch.mit.edu" target="_blank" rel="noopener">Scratch — programação por blocos <span class="arrow">↗</span></a></li>
+        <li><a href="https://code.org" target="_blank" rel="noopener">Code.org — atividades e laboratórios <span class="arrow">↗</span></a></li>
+        <li><a href="https://www.python.org" target="_blank" rel="noopener">Python — linguagem para começar <span class="arrow">↗</span></a></li>
+        <li><a href="https://skills.github.com" target="_blank" rel="noopener">GitHub Skills — primeiros passos com Git/GitHub <span class="arrow">↗</span></a></li>
+      </ul>
+
+      <div class="sources">
+        <h4>Fontes deste guia</h4>
+        <dl>
+          <dt>Graduações</dt>
+          <dd>MEC — Resolução CNE/CES nº 5/2016</dd>
+          <dt>Mercado brasileiro</dt>
+          <dd>Brasscom — Relatório Setorial 2025</dd>
+          <dt>Tendências globais</dt>
+          <dd>World Economic Forum — Future of Jobs 2025</dd>
+        </dl>
+        <p class="consulted">Dados consultados em 28/08/2026.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="closing">
+  <div class="page">
+    <p class="big">Se você ainda não sabe qual área escolher, tudo bem.</p>
+    <p class="q">"Que tipo de problema eu teria curiosidade de aprender a resolver?"</p>
+  </div>
+</div>
+
+<footer>Feira de Profissões Educativa 2026 · Guia de Tecnologia</footer>
+
+<script>
+  // reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // quiz
+  const quizItems = document.querySelectorAll('.quiz-item');
+  const quizResult = document.getElementById('quizResult');
+  quizItems.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      quizItems.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      quizResult.innerHTML = btn.getAttribute('data-r');
+      quizResult.classList.add('show');
+    });
+  });
+</script>
+
+</body>
+</html>
